@@ -47,17 +47,49 @@ class BST:
 
     def inorder(self) -> List[Any]:
         """Return inorder traversal (sorted sequence)."""
-        raise NotImplementedError
+        out = []
+        def _in(n: Optional[Node]):
+            if not n: return
+            _in(n.left)
+            out.append(n.key)
+            _in(n.right)
+        _in(self.root)
+        return out
 
     def preorder(self) -> List[Any]:
-        raise NotImplementedError
+        out = []
+        def _pre(n: Optional[Node]):
+            if not n: return
+            out.append(n.key)
+            _pre(n.left)
+            _pre(n.right)
+        _pre(self.root)
+        return out
+
 
     def postorder(self) -> List[Any]:
-        raise NotImplementedError
+        out = []
+        def _post(n: Optional[Node]):
+            if not n: return
+            _post(n.left)
+            _post(n.right)
+            out.append(n.key)
+        _post(self.root)
+        return out
 
     def level_order(self) -> List[Any]:
         """Breadth-first traversal."""
-        raise NotImplementedError
+        out = []
+        if not self.root:
+            return out
+        q = [self.root]
+        i = 0
+        while i < len(q):
+            n = q[i]; i += 1
+            out.append(n.key)
+            if n.left: q.append(n.left)
+            if n.right: q.append(n.right)
+        return out
 
     def min(self) -> Optional[Any]:
         raise NotImplementedError
