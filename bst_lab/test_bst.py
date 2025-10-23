@@ -1,5 +1,6 @@
 from bst import BST
 
+# Test cases for BST operations 
 def test_insert_search_ordering():
     t = BST([10,5,15,2,7,18])
     assert t.search(7)
@@ -10,6 +11,7 @@ def test_insert_search_ordering():
     assert t.max() == 18
     assert t.is_valid_bst()
 
+# Test deletion cases for leaf, one child, and two children nodes
 def test_delete_cases():
     t = BST([10,5,15,2,7,18,6])
     # leaf
