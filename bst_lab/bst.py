@@ -57,7 +57,14 @@ class BST:
         return out
 
     def preorder(self) -> List[Any]:
-        raise NotImplementedError
+        out = []
+        def _pre(n: Optional[Node]):
+            if not n: return
+            out.append(n.key)
+            _pre(n.left)
+            _pre(n.right)
+        _pre(self.root)
+        return out
 
     def postorder(self) -> List[Any]:
         out = []
