@@ -1,23 +1,38 @@
 from bst import BST, Node
 import random
 import sys
+from typing import Any
 sys.setrecursionlimit(10000)
 
 tree = BST([10, 5, 15, 2, 7, 18])
 print("Search 7:", tree.search(7))    # True
 print("Search 99:", tree.search(99))  # False
 print("Comparisons so far:", tree.comparisons)
-print("Inorder:", tree.inorder())
-print("Preorder:", tree.preorder())
-print("Postorder:", tree.postorder())
-print("Level Order:", tree.level_order())
+
+# Testing the order of the tree
+print("Inorder:", tree.inorder())           # (2, 5, 7, 10, 15, 18)
+print("Preorder:", tree.preorder())         # (10, 5, 2, 7, 15, 18)
+print("Postorder:", tree.postorder())       # (2, 7, 5, 18, 15, 10)
+print("Level Order:", tree.level_order())   # (10, 5, 15, 2, 7, 18)
+
+# Testing the min and max
 print("Minimum", tree.min())
 print("Maximum", tree.max())
-print("Delete", tree.delete(5))
-print("Delete", tree.delete(18))
-print("Delete", tree.delete(15))
-print("Delete", tree.delete(13))
-print("Inorder", tree.inorder())
+
+# Testing deleting and checking for invalid keys
+def print_delete(key: Any) -> None:
+    value = tree.delete(key)
+    if value:
+        print(f"Deleted: {key}. Inorder: {tree.inorder()}")
+    else:
+        print(f"Key {key} not found in tree. Inorder: {tree.inorder()}")
+    return value
+
+print(print_delete(5))      # True, [2, 7, 10, 15, 18] 
+print(print_delete(18))     # True, [2, 7, 10, 15]
+print(print_delete(15))     # True, [2, 7, 10]
+print(print_delete(13))     # False, [2, 7, 10]
+
 
 def show_valid(name: str, t: BST) -> None:
     ok = t.is_valid_bst()
@@ -25,7 +40,7 @@ def show_valid(name: str, t: BST) -> None:
     print("  inorder:", t.inorder())
     assert ok, f"{name} should be valid"
 
-print("----------------------------------------------------")
+print("--------------------------------------------------------")
 #Case A: standard valid BST
 t1 = BST([10, 5, 15, 2, 7, 12, 18])
 show_valid("Case A: standard", t1)
@@ -87,7 +102,7 @@ print(f"Case 4: is_valid_bst -> {ok4}")
 print("All false BST cases correctly detected")
 
 
-print("---------------------------------------------------------------------")
+print("--------------------------------------------------------")
 keys = list(range(1, 1025))
 random_keys = keys[:]
 random.shuffle(random_keys)
